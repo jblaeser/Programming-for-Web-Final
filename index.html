@@ -23,7 +23,11 @@
 
   <!-- Add your site or application content here -->
 
-
+    <div id="app">
+      <div class="question" v-for="(question, index) in quiz.questions">
+        <h2>{{question.question}}</h2>
+      </div>
+    </div>
 
 
 
