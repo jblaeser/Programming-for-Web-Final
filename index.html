@@ -25,13 +25,17 @@
 
     <div id="app">
       <div class="question" v-for="(question, index) in quiz.questions">
+        <div v-show="index === questionIndex">
         <h2>{{question.question}}</h2>
-        <li v-for="answer in question.answers">
-          <label>
-            <input type="radio" v-bind:value="answer.correct" 
-            v-bind:name="index" v-model="userAnswers[index]"> {{answer.ans}}
-          </label>
-        </li>
+          <ol>
+            <li v-for="answer in question.answers">
+              <label>
+                <input type="radio" v-bind:value="answer.correct" v-bind:name="index" v-model="userAnswers[index]"> {{answer.ans}}
+              </label>
+            </li>
+          </ol>
+          <button type="submit" v-on:click="submit">Next Question</button>
+        </div>
       </div>
     </div>
 

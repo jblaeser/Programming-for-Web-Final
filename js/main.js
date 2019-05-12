@@ -52,7 +52,7 @@ var quiz = {
         ],
         level: "easy"
         },
-        {question: "Cats make very little knows when walking due to what?",
+        {question: "Cats make very little noise when walking due to what?",
         answers: [
             {ans: "Their Size"},
             {ans: "Soft Pads on Their Feet"},
@@ -559,7 +559,7 @@ new Vue({
     },
     methods: {
         submit: function() {
-            
+            this.questionIndex++;
         }
     }
 })
