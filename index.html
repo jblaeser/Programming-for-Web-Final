@@ -25,10 +25,10 @@
 
     <div id="app">
       <h1>Welcome to the Great Kitty Quizzical</h1>
-      <div>
+      <div v-show="quizSelector === ''">
         <h2>Select Your Kitty Knowledge Level to Begin</h2>
         <div class="quiz-selector">
-          <button type="button" v-on:click="quizSelector = easy" >Kitty Newbie</button>
+          <button type="button" v-on:click="quizSelector = easy" >Kitty Novice</button>
           <button type="button" v-on:click="quizSelector = medium">Kitty Dabbler</button>
           <button type="button" v-on:click="quizSelector = hard">Kitty Enthusiast</button>
           <button type="button" v-on:click="quizSelector = extraHard">Kitty Expert</button>
@@ -38,7 +38,7 @@
 
 
       <div class="question" v-for="(question, index) in easy.questions">
-        <div v-show="index === questionIndex && quizSelector === easy">
+        <div v-show="index === easyIndex && quizSelector === easy">
         <h2>{{question.question}}</h2>
           <ol>
             <li v-for="answer in question.answers">
@@ -47,14 +47,24 @@
               </label>
             </li>
           </ol>
-          <button type="submit" v-on:click="submit">Next Question</button>
+          <button type="button" v-on:click="easySubmit(); easyComplete()">Next Question</button>
         </div>
       </div>
-      <div v-show="questionIndex === easy.questions.length">
-        Your score is {{easyScore()}} out of {{easy.questions.length}}
+      <div v-show="easyIndex === easy.questions.length && quizSelector === easy">
+        <h3>Your score is {{easyScore()}} out of {{easy.questions.length}} questions.</h3>
+        <h3 v-if="easyResults >= 10">Not too bad, Kitty Newb. Want to try your hand at a harder quiz?</h3>
+        <h3 v-else>Have you ever met a cat? Proceed to the harder quizzes with caution.</h3>
+        <h3 v-if="easyTaken && mediumTaken && hardTaken && extraHardTaken">You've answered all the questions there are to answer, you kitty genius, you!</h3>
+        <div class="quiz-selector">
+            <button v-show="mediumTaken === false" type="button" v-on:click="quizSelector = medium">Kitty Dabbler</button>
+            <button v-show="hardTaken === false" type="button" v-on:click="quizSelector = hard">Kitty Enthusiast</button>
+            <button v-show="extraHardTaken === false" type="button" v-on:click="quizSelector = extraHard">Kitty Expert</button>
+          </div>
       </div>
+
+
       <div class="question" v-for="(question, index) in medium.questions">
-          <div v-show="index === questionIndex && quizSelector === medium">
+          <div v-show="index === mediumIndex && quizSelector === medium">
           <h2>{{question.question}}</h2>
             <ol>
               <li v-for="answer in question.answers">
@@ -63,13 +73,76 @@
                 </label>
               </li>
             </ol>
-            <button type="submit" v-on:click="submit">Next Question</button>
+            <button type="button" v-on:click="mediumSubmit(); mediumComplete()">Next Question</button>
           </div>
         </div>
-        <div v-show="questionIndex === medium.questions.length">
-          Your score is {{mediumScore()}} out of {{medium.questions.length}}
+        <div v-show="mediumIndex === medium.questions.length && quizSelector === medium">
+          <h3>Your score is {{mediumScore()}} out of {{medium.questions.length}} questions.</h3>
+          <h3 v-if="mediumAnswers >= 10">You are a true cat fancier. Test your knowledge with a tougher quiz?</h3>
+        <h3 v-else>Not quite the cat fancier you fancied are you? Maybe you should try an easier quiz?</h3>
+        <h3 v-if="easyTaken && mediumTaken && hardTaken && extraHardTaken">You've answered all the questions there are to answer, you kitty genius, you!</h3>
+        <div class="quiz-selector">
+            <button v-show="easyTaken === false"type="button" v-on:click="quizSelector = easy">Kitty Novice</button>
+            <button v-show="hardTaken === false" type="button" v-on:click="quizSelector = hard">Kitty Enthusiast</button>
+            <button v-show="extraHardTaken === false" type="button" v-on:click="quizSelector = extraHard">Kitty Expert</button>
+          </div>
         </div>
+
+        <div class="question" v-for="(question, index) in hard.questions">
+            <div v-show="index === hardIndex && quizSelector === hard">
+            <h2>{{question.question}}</h2>
+              <ol>
+                <li v-for="answer in question.answers">
+                  <label>
+                    <input type="radio" v-bind:value="answer.correct" v-bind:name="index" v-model="hardAnswers[index]"> {{answer.ans}}
+                  </label>
+                </li>
+              </ol>
+              <button type="button" v-on:click="hardSubmit(); hardComplete()">Next Question</button>
+            </div>
+          </div>
+          <div v-show="hardIndex === hard.questions.length && quizSelector === hard">
+            <h3>Your score is {{hardScore()}} out of {{hard.questions.length}} questions.</h3>
+            <h3 v-if="hardResults >= 10">Quite the kitty savant we've got here. Why don't you try the hardest quiz?</h3>
+            <h3 v-else>I'm sure you're just having an off day. Maybe you should try an easier quiz to build back your confidence?</h3>
+            <h3 v-if="easyTaken && mediumTaken && hardTaken && extraHardTaken">You've answered all the questions there are to answer, you kitty genius, you!</h3>
+            <div class="quiz-selector">
+             <button v-show="easyTaken === false" type="button" v-on:click="quizSelector = easy">Kitty Newb</button>
+              <button v-show="mediumTaken === false" type="button" v-on:click="quizSelector = medium">Kitty Dabbler</button>
+              <button v-show="extraHardTaken === false"type="button" v-on:click="quizSelector = extraHard">Kitty Expert</button>
+            </div>
+          </div>
+
+        <div class="question" v-for="(question, index) in extraHard.questions">
+            <div v-show="index === extraHardIndex && quizSelector === extraHard">
+              <h2>{{question.question}}</h2>
+              <ol>
+                <li v-for="answer in question.answers">
+                  <label>
+                    <input type="radio" v-bind:value="answer.correct" v-bind:name="index" v-model="extraHardAnswers[index]"> {{answer.ans}}
+                  </label>
+                </li>
+              </ol>
+              <button type="button" v-on:click="extraHardSubmit(); extraHardComplete()">Next Question</button>
+            </div>
+          </div>
+          <div v-show="extraHardIndex === extraHard.questions.length && quizSelector === extraHard">
+            <h3>Your score is {{extraHardScore()}} out of {{extraHard.questions.length}} questions.</h3>
+            <h3 v-if="extraHardResults >= 10">You're the purest of pure kitty lovers. You can try the other quizzes, but you'll probably ace them.</h3>
+            <h3 v-else>It's ok. We can't all be perfect fountains of kitty knowledge. Why don't you work on that with an easier quiz?</h3>
+            <h3 v-if="easyTaken && mediumTaken && hardTaken && extraHardTaken">You've answered all the questions there are to answer, you kitty genius, you!</h3>
+            <div class="quiz-selector">
+             <button v-show="easyTaken === false" type="button" v-on:click="quizSelector = easy">Kitty Newb</button>
+              <button v-show="mediumTaken === false" type="button" v-on:click="quizSelector = medium">Kitty Dabbler</button>
+              <button v-show="hardTaken === false" type="button" v-on:click="quizSelector = hard">Kitty Enthusiast</button>
+            </div>
+          </div>
+
+
+
     </div>
+
+
 
 
 

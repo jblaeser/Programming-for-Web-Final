@@ -42,13 +42,6 @@ var easyQuiz = {
                 {ans: "Their Own Entertainment"},
                 {ans: "Greeting Other Cats"}
             ]},
-            {question: "Cats make very little noise when walking due to what?",
-            answers: [
-                {ans: "Their Size"},
-                {ans: "Soft Pads on Their Feet"},
-                {ans: "Furry Feet"},
-                {ans: "Cat Magic"}
-            ]},
             {question: "What do cats use their whiskers for?",
             answers: [
                 {ans: "Smelling"},
@@ -90,13 +83,6 @@ var easyQuiz = {
                 {ans: "60%"},
                 {ans: "33%"},
                 {ans: "75%", correct: true}
-            ]},
-            {question: "What is one of the longest running Broadway shows of all time?",
-            answers: [
-                {ans: "Cat on a Hot Tin Roof"},
-                {ans: "Cats", correct: true},
-                {ans: "The Aristocats"},
-                {ans: "The Cat's Meow"}
             ]},
             {question: "How fast can the average cat run?",
             answers: [
@@ -142,13 +128,6 @@ var easyQuiz = {
                 {ans: "Felix", correct: true},
                 {ans: "Tom of Tom & Jerry"},
                 {ans: "Sylvester"}
-            ]},
-            {question: "What do adult cats only do to humans?",
-            answers: [
-                {ans: "Groom Them"},
-                {ans: "Scratch Them"},
-                {ans: "Meow at Them", correct: true},
-                {ans: "Sleep on Them"}
             ]},
             {question: "White cats with blue eyes are more likely to be what?",
             answers: [
@@ -244,6 +223,13 @@ var easyQuiz = {
                 {ans: "Pityriasis"},
                 {ans: "Canities"}
             ]},
+            {question: "What is the technical term for a cat lover?",
+            answers: [
+                {ans: "Felephile"},
+                {ans: "Ailurophile", correct: true},
+                {ans: "Cattusphilus"},
+                {ans: "Feliniusphilius"}
+            ]},
             {question: "How much of their genome do domestic cats share with tigers?",
             answers: [
                 {ans: "85.7%"},
@@ -299,6 +285,13 @@ var easyQuiz = {
                 {ans: "Disneyland", correct: true},
                 {ans: "Taj Mahal"},
                 {ans: "Westminster Abbey"}
+            ]},
+            {question: "How many pet cats are there in the United States?",
+            answers: [
+                {ans: "72 Million"},
+                {ans: "123 Million"},
+                {ans: "50 Million"},
+                {ans: "88 Million", correct: true}
             ]},
             {question: "How did Nikola Tesla's cat inspire him to investigate electricity?",
             answers: [
@@ -447,31 +440,71 @@ new Vue({
         medium: mediumQuiz,
         hard: hardQuiz,
         extraHard: extraHardQuiz,
-        questionIndex: 0,
+        easyIndex: 0,
+        mediumIndex: 0,
+        hardIndex: 0,
+        extraHardIndex: 0,
         easyAnswers: Array(easyQuiz.questions.length).fill(false),
         mediumAnswers: Array(mediumQuiz.questions.length).fill(false),
         hardAnswers: Array(hardQuiz.questions.length).fill(false),
         extraHardAnswers: Array(extraHardQuiz.questions.length).fill(false),
-
-
-
-        quizSelector: ""
+        easyResults: "",
+        mediumResults: "",
+        hardResults: "",
+        extraHardResults: "",
+        quizSelector: "",
+        easyTaken: false,
+        mediumTaken: false,
+        hardTaken: false,
+        extraHardTaken: false,
+        quizzesComplete: false,
     },
     methods: {
-        submit: function() {
-            this.questionIndex++;
+        easySubmit: function() {
+            this.easyIndex++;
+        },
+        easyComplete: function() {
+            this.easyTaken = true;
+        },
+        mediumSubmit: function() {
+            this.mediumIndex++;
+        },
+        mediumComplete: function() {
+            this.mediumTaken = true;
+        },
+        hardSubmit: function() {
+            this.hardIndex++;
+        },
+        hardComplete: function() {
+            this.hardTaken = true;
+        },
+        extraHardSubmit: function() {
+            this.extraHardIndex++;
+        },
+        extraHardComplete: function() {
+            this.extraHardTaken = true;
+        },
+        done: function() {
+            if (easyTaken===true && mediumTaken===true && hardTaken===true && extraHardTaken===true) {
+                quizzesComplete = true;
+                }
         },
         easyScore: function() {
-            return this.easyAnswers.filter(function(val) {return val}).length;
+            this.easyResults = this.easyAnswers.filter(function(val) {return val}).length;
+            return this.easyResults;
         },
         mediumScore: function() {
-            return this.mediumAnswers.filter(function(val) {return val}).length;
+            this.mediumResults = this.mediumAnswers.filter(function(val) {return val}).length;
+            return this.mediumResults;
         },
         hardScore: function() {
-            return this.hardAnswers.filter(function(val) {return val}).length;
+            this.hardResults = this.hardAnswers.filter(function(val) {return val}).length;
+            return this.hardResults;
         },
         extraHardScore: function() {
-            return this.extraHardAnswers.filter(function(val) {return val}).length;
-        }
+            this.extraHardResults = this.extraHardAnswers.filter(function(val) {return val}).length;
+            return this.extraHardResults;
+        },
+
     }
 })
