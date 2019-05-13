@@ -68,22 +68,24 @@
       <div class="question" v-for="(question, index) in medium.questions">
           <div v-show="index === mediumIndex && quizSelector === medium">
           <h2>{{question.question}}</h2>
-            <ol>
-              <li v-for="answer in question.answers">
-                <label>
-                  <input type="radio" v-bind:value="answer.correct" v-bind:name="index" v-model="mediumAnswers[index]"> {{answer.ans}}
-                </label>
-              </li>
-            </ol>
+            <div class="answer-holder">
+              <ol>
+                <li v-for="answer in question.answers">
+                  <label>
+                    <input type="radio" v-bind:value="answer.correct" v-bind:name="index" v-model="mediumAnswers[index]"> {{answer.ans}}
+                  </label>
+                </li>
+              </ol>
+            </div>
             <button type="button" v-on:click="mediumSubmit(); mediumComplete()">Next Question</button>
           </div>
         </div>
         <div v-show="mediumIndex === medium.questions.length && quizSelector === medium">
           <h3>Your score is {{mediumScore()}} out of {{medium.questions.length}} questions.</h3>
-          <h3 v-if="mediumAnswers >= 10">You are a true cat fancier. Test your knowledge with a tougher quiz?</h3>
-        <h3 v-else>Not quite the cat fancier you fancied are you? Maybe you should try an easier quiz?</h3>
-        <h3 v-if="easyTaken && mediumTaken && hardTaken && extraHardTaken">You've answered all the questions there are to answer, you kitty genius, you!</h3>
-        <div class="quiz-selector">
+          <h3 v-if="mediumResults >= 10">You are a true cat fancier. Test your knowledge with a tougher quiz?</h3>
+          <h3 v-else>Not quite the cat fancier you fancied are you? Maybe you should try an easier quiz?</h3>
+          <h3 v-if="easyTaken && mediumTaken && hardTaken && extraHardTaken">You've answered all the questions there are to answer, you kitty genius, you!</h3>
+          <div class="quiz-selector">
             <button v-show="easyTaken === false"type="button" v-on:click="quizSelector = easy">Kitty Novice</button>
             <button v-show="hardTaken === false" type="button" v-on:click="quizSelector = hard">Kitty Enthusiast</button>
             <button v-show="extraHardTaken === false" type="button" v-on:click="quizSelector = extraHard">Kitty Expert</button>
@@ -93,13 +95,15 @@
         <div class="question" v-for="(question, index) in hard.questions">
             <div v-show="index === hardIndex && quizSelector === hard">
             <h2>{{question.question}}</h2>
-              <ol>
-                <li v-for="answer in question.answers">
-                  <label>
-                    <input type="radio" v-bind:value="answer.correct" v-bind:name="index" v-model="hardAnswers[index]"> {{answer.ans}}
-                  </label>
-                </li>
-              </ol>
+              <div class="answer-holder">
+                <ol>
+                  <li v-for="answer in question.answers">
+                    <label>
+                      <input type="radio" v-bind:value="answer.correct" v-bind:name="index" v-model="hardAnswers[index]"> {{answer.ans}}
+                    </label>
+                  </li>
+                </ol>
+              </div>
               <button type="button" v-on:click="hardSubmit(); hardComplete()">Next Question</button>
             </div>
           </div>
@@ -118,13 +122,15 @@
         <div class="question" v-for="(question, index) in extraHard.questions">
             <div v-show="index === extraHardIndex && quizSelector === extraHard">
               <h2>{{question.question}}</h2>
-              <ol>
-                <li v-for="answer in question.answers">
-                  <label>
-                    <input type="radio" v-bind:value="answer.correct" v-bind:name="index" v-model="extraHardAnswers[index]"> {{answer.ans}}
-                  </label>
-                </li>
-              </ol>
+              <div class="answer-holder">
+                <ol>
+                  <li v-for="answer in question.answers">
+                    <label>
+                      <input type="radio" v-bind:value="answer.correct" v-bind:name="index" v-model="extraHardAnswers[index]"> {{answer.ans}}
+                    </label>
+                  </li>
+                </ol>
+              </div>
               <button type="button" v-on:click="extraHardSubmit(); extraHardComplete()">Next Question</button>
             </div>
           </div>

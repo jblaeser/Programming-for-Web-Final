@@ -122,7 +122,7 @@ var easyQuiz = {
                 {ans: "Ear Furnishings", correct: true},
                 {ans: "Ear Padding"}
             ]},
-            {question: "Which was the first cartoon cat?",
+            {question: "Who was the first cartoon cat?",
             answers: [
                 {ans: "Garfield"},
                 {ans: "Felix", correct: true},
@@ -180,7 +180,7 @@ var easyQuiz = {
             ]},
             {question: "What can cats do in order to survive?",
             answers: [
-                {ans: "Shed their tails"},
+                {ans: "Shed Their Tails"},
                 {ans: "Drink Sea Water", correct: true},
                 {ans: "Hibernate"},
                 {ans: "Play Dead"}
@@ -199,12 +199,12 @@ var easyQuiz = {
                 {ans: "Coat Pattern"},
                 {ans: "Ear Shape"}
             ]},
-            {question: "Which plant produces an effect similar to LSD or marijuana in cats",
+            {question: "What do adult cats only do to humans?",
             answers: [
-                {ans: "Catnip", correct: true},
-                {ans: "Lillies"},
-                {ans: "Spinach"},
-                {ans: "Oregano"}
+                {ans: "Meow At them", correct: true},
+                {ans: "Hiss At Them"},
+                {ans: "Groom Them"},
+                {ans: "Sleep On Them"}
             ]},
             {question: "When were cats first domesticated?",
             answers: [
@@ -275,7 +275,7 @@ var easyQuiz = {
             {question: "What do Turkish Vans, Maine Coons, and Bengals all typically enjoy?",
             answers: [
                 {ans: "Dogs"},
-                {ans: "Play Fetch"},
+                {ans: "Playing Fetch"},
                 {ans: "Water", correct: true},
                 {ans: "Digging Holes"}
             ]},
@@ -283,7 +283,7 @@ var easyQuiz = {
             answers: [
                 {ans: "Machu Pichu"},
                 {ans: "Disneyland", correct: true},
-                {ans: "Taj Mahal"},
+                {ans: "The Taj Mahal"},
                 {ans: "Westminster Abbey"}
             ]},
             {question: "How many pet cats are there in the United States?",
@@ -295,10 +295,10 @@ var easyQuiz = {
             ]},
             {question: "How did Nikola Tesla's cat inspire him to investigate electricity?",
             answers: [
-                {ans: "It shocked him", correct: true},
-                {ans: "It had static in its fur"},
-                {ans: "It electrocuted a mouse"},
-                {ans: "Its hair stood on end when it was scared"}
+                {ans: "It shocked him.", correct: true},
+                {ans: "It had static in its fur."},
+                {ans: "It electrocuted a mouse."},
+                {ans: "Its hair stood on end when it was scared."}
             ]},
             {question: "Owning a cat can reduce the risk of what by a third?",
             answers: [
@@ -373,7 +373,7 @@ var easyQuiz = {
                 {ans: "Alfred Hitchcock"},
                 {ans: "Winston Churchill"}
             ]},
-            {question: "In 2015a 6 x 8.5 foot oil painting billed as the 'world's largest cat painting' sold at auction for more than $820,000. What is it called?",
+            {question: "In 2015, a 6 x 8.5 foot oil painting billed as the 'world's largest cat painting' sold at auction for more than $820,000. What is it called?",
             answers: [
                 {ans: "Feline a Deux"},
                 {ans: "Puss Napping"},
@@ -457,7 +457,6 @@ new Vue({
         mediumTaken: false,
         hardTaken: false,
         extraHardTaken: false,
-        quizzesComplete: false,
     },
     methods: {
         easySubmit: function() {
@@ -484,11 +483,7 @@ new Vue({
         extraHardComplete: function() {
             this.extraHardTaken = true;
         },
-        done: function() {
-            if (easyTaken===true && mediumTaken===true && hardTaken===true && extraHardTaken===true) {
-                quizzesComplete = true;
-                }
-        },
+
         easyScore: function() {
             this.easyResults = this.easyAnswers.filter(function(val) {return val}).length;
             return this.easyResults;
