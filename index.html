@@ -24,22 +24,51 @@
   <!-- Add your site or application content here -->
 
     <div id="app">
-      <div class="question" v-for="(question, index) in quiz.questions">
-        <div v-show="index === questionIndex">
+      <h1>Welcome to the Great Kitty Quizzical</h1>
+      <div>
+        <h2>Select Your Kitty Knowledge Level to Begin</h2>
+        <div class="quiz-selector">
+          <button type="button" v-on:click="quizSelector = easy" >Kitty Newbie</button>
+          <button type="button" v-on:click="quizSelector = medium">Kitty Dabbler</button>
+          <button type="button" v-on:click="quizSelector = hard">Kitty Enthusiast</button>
+          <button type="button" v-on:click="quizSelector = extraHard">Kitty Expert</button>
+        </div>
+      </div>
+
+
+
+      <div class="question" v-for="(question, index) in easy.questions">
+        <div v-show="index === questionIndex && quizSelector === easy">
         <h2>{{question.question}}</h2>
           <ol>
             <li v-for="answer in question.answers">
               <label>
-                <input type="radio" v-bind:value="answer.correct" v-bind:name="index" v-model="userAnswers[index]"> {{answer.ans}}
+                <input type="radio" v-bind:value="answer.correct" v-bind:name="index" v-model="easyAnswers[index]"> {{answer.ans}}
               </label>
             </li>
           </ol>
           <button type="submit" v-on:click="submit">Next Question</button>
         </div>
       </div>
-      <div v-show="questionIndex === quiz.questions.length">
-        Your score is {{score()}} out of {{quiz.questions.length}}
+      <div v-show="questionIndex === easy.questions.length">
+        Your score is {{easyScore()}} out of {{easy.questions.length}}
       </div>
+      <div class="question" v-for="(question, index) in medium.questions">
+          <div v-show="index === questionIndex && quizSelector === medium">
+          <h2>{{question.question}}</h2>
+            <ol>
+              <li v-for="answer in question.answers">
+                <label>
+                  <input type="radio" v-bind:value="answer.correct" v-bind:name="index" v-model="mediumAnswers[index]"> {{answer.ans}}
+                </label>
+              </li>
+            </ol>
+            <button type="submit" v-on:click="submit">Next Question</button>
+          </div>
+        </div>
+        <div v-show="questionIndex === medium.questions.length">
+          Your score is {{mediumScore()}} out of {{medium.questions.length}}
+        </div>
     </div>
 
 
