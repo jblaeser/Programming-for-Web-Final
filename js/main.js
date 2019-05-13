@@ -560,6 +560,9 @@ new Vue({
     methods: {
         submit: function() {
             this.questionIndex++;
+        },
+        score: function() {
+            return this.userAnswers.filter(function(val) {return val}).length;
         }
     }
 })

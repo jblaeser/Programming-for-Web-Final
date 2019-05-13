@@ -37,6 +37,9 @@
           <button type="submit" v-on:click="submit">Next Question</button>
         </div>
       </div>
+      <div v-show="questionIndex === quiz.questions.length">
+        Your score is {{score()}} out of {{quiz.questions.length}}
+      </div>
     </div>
 
 
