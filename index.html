@@ -23,8 +23,8 @@
 
   <!-- Add your site or application content here -->
 
-    <div id="app">
-      <h1>Welcome to the Great Kitty Quizzical</h1>
+    <div id="app" v-cloak>
+      <h1 v-if="quizSelector ==='' && !easyTaken && !mediumTaken && !hardTaken && !extraHardTaken">Welcome to the Great Kitty Quizzical</h1>
       <div v-show="quizSelector === ''">
         <h2>Select Your Kitty Knowledge Level to Begin</h2>
         <div class="quiz-selector">
@@ -40,13 +40,15 @@
       <div class="question" v-for="(question, index) in easy.questions">
         <div v-show="index === easyIndex && quizSelector === easy">
         <h2>{{question.question}}</h2>
-          <ol>
-            <li v-for="answer in question.answers">
-              <label>
-                <input type="radio" v-bind:value="answer.correct" v-bind:name="index" v-model="easyAnswers[index]"> {{answer.ans}}
-              </label>
-            </li>
-          </ol>
+          <div class="answer-holder">
+            <ol>
+              <li v-for="answer in question.answers">
+                <label>
+                  <input type="radio" v-bind:value="answer.correct" v-bind:name="index" v-model="easyAnswers[index]"> {{answer.ans}}
+                </label>
+              </li>
+            </ol>
+          </div>
           <button type="button" v-on:click="easySubmit(); easyComplete()">Next Question</button>
         </div>
       </div>

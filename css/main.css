@@ -9,6 +9,7 @@
 /* ==========================================================================
    Base styles: opinionated defaults
    ========================================================================== */
+@import url('https://fonts.googleapis.com/css?family=Questrial');
 
 html {
     color: #222;
@@ -96,10 +97,54 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+[v-cloak] {
+    display: none;
+}
 
 
+body {
+    background-image: url(../img/background.jpg);
+    font-family: 'Questrial', sans-serif;
 
+}
 
+#app {
+    background-color: #fff;
+    margin: 3em auto;
+    padding: 5em;
+    max-width: 50%;
+    text-align: center;
+}
+
+li {
+    padding: .5em;
+    text-align: left;
+}
+
+ol {
+    list-style: upper-alpha;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.answer-holder {
+    max-width: 40%;
+    margin: 0 auto;
+}
+
+button {
+    background-color: #000;
+    color: #fff;
+    padding: .75em;
+    margin: 2em .5em;
+}
+
+button:hover {
+    background-color: #fff;
+    border: .125em solid #000;
+    color: #000;
+    cursor: pointer;
+}
 
 
 
